@@ -1,14 +1,10 @@
-
-
-
 public class Main {
 
     public static void main(String[] args) {
 
-        // Create ProblemManager object
-        ProblemManager manager = new ProblemManager();
+        ProblemManager manager =
+                new ProblemManager();
 
-        // Load saved problems from file
         manager.loadProblems();
 
         int choice;
@@ -27,48 +23,26 @@ public class Main {
                     "======================================"
             );
 
-            System.out.println(
-                    "1.  Add Problem"
-            );
+            System.out.println("1.  Add Problem");
+            System.out.println("2.  Display All Problems");
+            System.out.println("3.  Mark Problem as Solved");
+            System.out.println("4.  Mark Problem as Unsolved");
+            System.out.println("5.  Search by Category");
+            System.out.println("6.  Search by Name");
+            System.out.println("7.  Update Problem");
+            System.out.println("8.  Delete Problem");
+            System.out.println("9.  Show Progress");
+            System.out.println("10. Filter by Difficulty");
+            System.out.println("11. Filter by Status");
+            System.out.println("12. Sort by ID");
+            System.out.println("13. Sort by Difficulty");
+            System.out.println("14. Category-wise Progress");
+            System.out.println("15. Exit");
 
-            System.out.println(
-                    "2.  Display All Problems"
-            );
-
-            System.out.println(
-                    "3.  Mark Problem as Solved"
-            );
-
-            System.out.println(
-                    "4.  Mark Problem as Unsolved"
-            );
-
-            System.out.println(
-                    "5.  Search by Category"
-            );
-
-            System.out.println(
-                    "6.  Search by Name"
-            );
-
-            System.out.println(
-                    "7.  Update Problem"
-            );
-
-            System.out.println(
-                    "8.  Delete Problem"
-            );
-
-            System.out.println(
-                    "9.  Show Progress"
-            );
-
-            System.out.println(
-                    "10. Exit"
-            );
-
-            // Get valid menu choice
-            choice = manager.getMenuChoice();
+            choice =
+                    manager.getInteger(
+                            "\nEnter your choice: "
+                    );
 
             switch (choice) {
 
@@ -109,8 +83,27 @@ public class Main {
                     break;
 
                 case 10:
+                    manager.filterByDifficulty();
+                    break;
 
-                    // Save before exiting
+                case 11:
+                    manager.filterByStatus();
+                    break;
+
+                case 12:
+                    manager.sortById();
+                    break;
+
+                case 13:
+                    manager.sortByDifficulty();
+                    break;
+
+                case 14:
+                    manager.categoryProgress();
+                    break;
+
+                case 15:
+
                     manager.saveProblems();
 
                     System.out.println(
@@ -119,8 +112,16 @@ public class Main {
                     );
 
                     break;
+
+                default:
+
+                    System.out.println(
+                            "Invalid choice! Please select 1-15."
+                    );
             }
 
-        } while (choice != 10);
+        } while (choice != 15);
     }
 }
+
+

@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
@@ -7,7 +5,6 @@ import java.io.*;
 public class ProblemManager {
 
     private ArrayList<Problem> problems = new ArrayList<>();
-
     private Scanner scanner = new Scanner(System.in);
 
     private static final String FILE_NAME = "data/problems.txt";
@@ -26,7 +23,6 @@ public class ProblemManager {
             String input = scanner.nextLine();
 
             try {
-
                 return Integer.parseInt(input);
 
             } catch (NumberFormatException e) {
@@ -48,7 +44,6 @@ public class ProblemManager {
             String input = scanner.nextLine().trim();
 
             if (!input.isEmpty()) {
-
                 return input;
             }
 
@@ -69,17 +64,14 @@ public class ProblemManager {
                     );
 
             if (difficulty.equalsIgnoreCase("Easy")) {
-
                 return "Easy";
             }
 
             if (difficulty.equalsIgnoreCase("Medium")) {
-
                 return "Medium";
             }
 
             if (difficulty.equalsIgnoreCase("Hard")) {
-
                 return "Hard";
             }
 
@@ -97,20 +89,19 @@ public class ProblemManager {
             int choice =
                     getInteger("\nEnter your choice: ");
 
-            if (choice >= 1 && choice <= 10) {
-
+            if (choice >= 1 && choice <= 15) {
                 return choice;
             }
 
             System.out.println(
-                    "Invalid choice! Please select 1-10."
+                    "Invalid choice! Please select 1-15."
             );
         }
     }
 
 
     // ==================================================
-    // SAVE PROBLEMS
+    // FILE HANDLING
     // ==================================================
 
     public void saveProblems() {
@@ -120,7 +111,6 @@ public class ProblemManager {
             File folder = new File("data");
 
             if (!folder.exists()) {
-
                 folder.mkdirs();
             }
 
@@ -146,16 +136,11 @@ public class ProblemManager {
     }
 
 
-    // ==================================================
-    // LOAD PROBLEMS
-    // ==================================================
-
     public void loadProblems() {
 
         File file = new File(FILE_NAME);
 
         if (!file.exists()) {
-
             return;
         }
 
@@ -171,7 +156,6 @@ public class ProblemManager {
             while ((line = reader.readLine()) != null) {
 
                 if (line.trim().isEmpty()) {
-
                     continue;
                 }
 
@@ -184,9 +168,7 @@ public class ProblemManager {
                             Integer.parseInt(data[0]);
 
                     String name = data[1];
-
                     String category = data[2];
-
                     String difficulty = data[3];
 
                     boolean solved =
@@ -230,8 +212,6 @@ public class ProblemManager {
         int id =
                 getInteger("Enter Problem ID: ");
 
-
-        // Check duplicate ID
         for (Problem problem : problems) {
 
             if (problem.id == id) {
@@ -244,22 +224,18 @@ public class ProblemManager {
             }
         }
 
-
         String name =
                 getNonEmptyInput(
                         "Enter Problem Name: "
                 );
-
 
         String category =
                 getNonEmptyInput(
                         "Enter Category: "
                 );
 
-
         String difficulty =
                 getDifficulty();
-
 
         problems.add(
                 new Problem(
@@ -270,9 +246,7 @@ public class ProblemManager {
                 )
         );
 
-
         saveProblems();
-
 
         System.out.println(
                 "Problem added successfully!"
@@ -281,7 +255,7 @@ public class ProblemManager {
 
 
     // ==================================================
-    // DISPLAY PROBLEMS
+    // DISPLAY ALL PROBLEMS
     // ==================================================
 
     public void displayProblems() {
@@ -289,7 +263,6 @@ public class ProblemManager {
         System.out.println(
                 "\n===== ALL PROBLEMS ====="
         );
-
 
         if (problems.isEmpty()) {
 
@@ -300,6 +273,16 @@ public class ProblemManager {
             return;
         }
 
+        displayList(problems);
+    }
+
+
+    // ==================================================
+    // DISPLAY LIST
+    // ==================================================
+
+    private void displayList(
+            ArrayList<Problem> list) {
 
         System.out.println(
                 "ID | Name | Category | Difficulty | Status"
@@ -309,9 +292,7 @@ public class ProblemManager {
                 "-------------------------------------------------------"
         );
 
-
-        for (Problem problem : problems) {
-
+        for (Problem problem : list) {
             problem.display();
         }
     }
@@ -328,10 +309,7 @@ public class ProblemManager {
         );
 
         int id =
-                getInteger(
-                        "Enter Problem ID: "
-                );
-
+                getInteger("Enter Problem ID: ");
 
         for (Problem problem : problems) {
 
@@ -358,7 +336,6 @@ public class ProblemManager {
             }
         }
 
-
         System.out.println(
                 "Problem not found."
         );
@@ -376,10 +353,7 @@ public class ProblemManager {
         );
 
         int id =
-                getInteger(
-                        "Enter Problem ID: "
-                );
-
+                getInteger("Enter Problem ID: ");
 
         for (Problem problem : problems) {
 
@@ -406,7 +380,6 @@ public class ProblemManager {
             }
         }
 
-
         System.out.println(
                 "Problem not found."
         );
@@ -428,9 +401,7 @@ public class ProblemManager {
                         "Enter Category: "
                 );
 
-
         boolean found = false;
-
 
         for (Problem problem : problems) {
 
@@ -442,7 +413,6 @@ public class ProblemManager {
                 found = true;
             }
         }
-
 
         if (!found) {
 
@@ -468,9 +438,7 @@ public class ProblemManager {
                         "Enter Problem Name: "
                 );
 
-
         boolean found = false;
-
 
         for (Problem problem : problems) {
 
@@ -483,7 +451,6 @@ public class ProblemManager {
                 found = true;
             }
         }
-
 
         if (!found) {
 
@@ -505,10 +472,7 @@ public class ProblemManager {
         );
 
         int id =
-                getInteger(
-                        "Enter Problem ID: "
-                );
-
+                getInteger("Enter Problem ID: ");
 
         for (Problem problem : problems) {
 
@@ -520,25 +484,20 @@ public class ProblemManager {
 
                 problem.display();
 
-
                 problem.name =
                         getNonEmptyInput(
                                 "Enter New Problem Name: "
                         );
-
 
                 problem.category =
                         getNonEmptyInput(
                                 "Enter New Category: "
                         );
 
-
                 problem.difficulty =
                         getDifficulty();
 
-
                 saveProblems();
-
 
                 System.out.println(
                         "Problem updated successfully!"
@@ -547,7 +506,6 @@ public class ProblemManager {
                 return;
             }
         }
-
 
         System.out.println(
                 "Problem not found."
@@ -566,10 +524,7 @@ public class ProblemManager {
         );
 
         int id =
-                getInteger(
-                        "Enter Problem ID: "
-                );
-
+                getInteger("Enter Problem ID: ");
 
         for (int i = 0;
              i < problems.size();
@@ -583,12 +538,10 @@ public class ProblemManager {
 
                 problems.get(i).display();
 
-
                 String confirmation =
                         getNonEmptyInput(
                                 "Are you sure? (yes/no): "
                         );
-
 
                 if (confirmation.equalsIgnoreCase("yes")) {
 
@@ -611,7 +564,6 @@ public class ProblemManager {
             }
         }
 
-
         System.out.println(
                 "Problem not found."
         );
@@ -619,15 +571,212 @@ public class ProblemManager {
 
 
     // ==================================================
-    // BETTER PROGRESS
+    // FILTER BY DIFFICULTY
     // ==================================================
 
-    public void showProgress() {
+    public void filterByDifficulty() {
 
         System.out.println(
-                "\n========== PROGRESS =========="
+                "\n===== FILTER BY DIFFICULTY ====="
         );
 
+        String difficulty =
+                getDifficulty();
+
+        ArrayList<Problem> filtered =
+                new ArrayList<>();
+
+        for (Problem problem : problems) {
+
+            if (problem.difficulty
+                    .equalsIgnoreCase(difficulty)) {
+
+                filtered.add(problem);
+            }
+        }
+
+        if (filtered.isEmpty()) {
+
+            System.out.println(
+                    "No problems found."
+            );
+
+            return;
+        }
+
+        displayList(filtered);
+    }
+
+
+    // ==================================================
+    // FILTER BY STATUS
+    // ==================================================
+
+    public void filterByStatus() {
+
+        System.out.println(
+                "\n===== FILTER BY STATUS ====="
+        );
+
+        System.out.println("1. Solved");
+        System.out.println("2. Unsolved");
+
+        int choice =
+                getInteger("Enter choice: ");
+
+        if (choice != 1 && choice != 2) {
+
+            System.out.println(
+                    "Invalid choice."
+            );
+
+            return;
+        }
+
+        ArrayList<Problem> filtered =
+                new ArrayList<>();
+
+        for (Problem problem : problems) {
+
+            if (choice == 1 && problem.solved) {
+
+                filtered.add(problem);
+            }
+
+            else if (choice == 2 && !problem.solved) {
+
+                filtered.add(problem);
+            }
+        }
+
+        if (filtered.isEmpty()) {
+
+            System.out.println(
+                    "No problems found."
+            );
+
+            return;
+        }
+
+        displayList(filtered);
+    }
+
+
+    // ==================================================
+    // SORT BY ID
+    // ==================================================
+
+    public void sortById() {
+
+        for (int i = 0;
+             i < problems.size() - 1;
+             i++) {
+
+            for (int j = 0;
+                 j < problems.size() - i - 1;
+                 j++) {
+
+                if (problems.get(j).id >
+                        problems.get(j + 1).id) {
+
+                    Problem temp =
+                            problems.get(j);
+
+                    problems.set(
+                            j,
+                            problems.get(j + 1)
+                    );
+
+                    problems.set(
+                            j + 1,
+                            temp
+                    );
+                }
+            }
+        }
+
+        System.out.println(
+                "\nProblems sorted by ID."
+        );
+
+        displayList(problems);
+    }
+
+
+    // ==================================================
+    // SORT BY DIFFICULTY
+    // ==================================================
+
+    public void sortByDifficulty() {
+
+        for (int i = 0;
+             i < problems.size() - 1;
+             i++) {
+
+            for (int j = 0;
+                 j < problems.size() - i - 1;
+                 j++) {
+
+                int current =
+                        difficultyValue(
+                                problems.get(j).difficulty
+                        );
+
+                int next =
+                        difficultyValue(
+                                problems.get(j + 1).difficulty
+                        );
+
+                if (current > next) {
+
+                    Problem temp =
+                            problems.get(j);
+
+                    problems.set(
+                            j,
+                            problems.get(j + 1)
+                    );
+
+                    problems.set(
+                            j + 1,
+                            temp
+                    );
+                }
+            }
+        }
+
+        System.out.println(
+                "\nProblems sorted by difficulty."
+        );
+
+        displayList(problems);
+    }
+
+
+    private int difficultyValue(
+            String difficulty) {
+
+        if (difficulty.equalsIgnoreCase("Easy")) {
+            return 1;
+        }
+
+        if (difficulty.equalsIgnoreCase("Medium")) {
+            return 2;
+        }
+
+        return 3;
+    }
+
+
+    // ==================================================
+    // CATEGORY-WISE PROGRESS
+    // ==================================================
+
+    public void categoryProgress() {
+
+        System.out.println(
+                "\n===== CATEGORY-WISE PROGRESS ====="
+        );
 
         if (problems.isEmpty()) {
 
@@ -638,23 +787,107 @@ public class ProblemManager {
             return;
         }
 
+        ArrayList<String> categories =
+                new ArrayList<>();
+
+        for (Problem problem : problems) {
+
+            boolean exists = false;
+
+            for (String category : categories) {
+
+                if (category.equalsIgnoreCase(
+                        problem.category)) {
+
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+
+                categories.add(
+                        problem.category
+                );
+            }
+        }
+
+        for (String category : categories) {
+
+            int total = 0;
+            int solved = 0;
+
+            for (Problem problem : problems) {
+
+                if (problem.category
+                        .equalsIgnoreCase(category)) {
+
+                    total++;
+
+                    if (problem.solved) {
+                        solved++;
+                    }
+                }
+            }
+
+            double percentage =
+                    ((double) solved / total) * 100;
+
+            System.out.println(
+                    "\nCategory: " + category
+            );
+
+            System.out.println(
+                    "Total   : " + total
+            );
+
+            System.out.println(
+                    "Solved  : " + solved
+            );
+
+            System.out.println(
+                    "Unsolved: " +
+                    (total - solved)
+            );
+
+            System.out.printf(
+                    "Progress: %.2f%%\n",
+                    percentage
+            );
+        }
+    }
+
+
+    // ==================================================
+    // BETTER OVERALL PROGRESS
+    // ==================================================
+
+    public void showProgress() {
+
+        System.out.println(
+                "\n========== PROGRESS =========="
+        );
+
+        if (problems.isEmpty()) {
+
+            System.out.println(
+                    "No problems available."
+            );
+
+            return;
+        }
 
         int total = problems.size();
-
         int solved = 0;
-
 
         int easyTotal = 0;
         int mediumTotal = 0;
         int hardTotal = 0;
 
-
         int easySolved = 0;
         int mediumSolved = 0;
         int hardSolved = 0;
 
-
-        // Count problems
         for (Problem problem : problems) {
 
             if (problem.difficulty
@@ -663,7 +896,6 @@ public class ProblemManager {
                 easyTotal++;
 
                 if (problem.solved) {
-
                     easySolved++;
                 }
             }
@@ -674,7 +906,6 @@ public class ProblemManager {
                 mediumTotal++;
 
                 if (problem.solved) {
-
                     mediumSolved++;
                 }
             }
@@ -685,58 +916,19 @@ public class ProblemManager {
                 hardTotal++;
 
                 if (problem.solved) {
-
                     hardSolved++;
                 }
             }
 
-
             if (problem.solved) {
-
                 solved++;
             }
         }
 
-
-        int unsolved =
-                total - solved;
-
+        int unsolved = total - solved;
 
         double overallPercentage =
                 ((double) solved / total) * 100;
-
-
-        double easyPercentage = 0;
-
-        if (easyTotal > 0) {
-
-            easyPercentage =
-                    ((double) easySolved /
-                            easyTotal) * 100;
-        }
-
-
-        double mediumPercentage = 0;
-
-        if (mediumTotal > 0) {
-
-            mediumPercentage =
-                    ((double) mediumSolved /
-                            mediumTotal) * 100;
-        }
-
-
-        double hardPercentage = 0;
-
-        if (hardTotal > 0) {
-
-            hardPercentage =
-                    ((double) hardSolved /
-                            hardTotal) * 100;
-        }
-
-
-        // ================= OVERALL =================
 
         System.out.println(
                 "\n----- OVERALL -----"
@@ -759,85 +951,67 @@ public class ProblemManager {
                 overallPercentage
         );
 
-
-        // ================= DIFFICULTY =================
-
         System.out.println(
                 "\n----- DIFFICULTY WISE -----"
         );
 
-
-        System.out.println(
-                "\nEasy"
+        printDifficultyProgress(
+                "Easy",
+                easyTotal,
+                easySolved
         );
 
-        System.out.println(
-                "  Total    : " + easyTotal
+        printDifficultyProgress(
+                "Medium",
+                mediumTotal,
+                mediumSolved
         );
 
-        System.out.println(
-                "  Solved   : " + easySolved
+        printDifficultyProgress(
+                "Hard",
+                hardTotal,
+                hardSolved
         );
-
-        System.out.println(
-                "  Unsolved : " +
-                        (easyTotal - easySolved)
-        );
-
-        System.out.printf(
-                "  Progress : %.2f%%\n",
-                easyPercentage
-        );
-
-
-        System.out.println(
-                "\nMedium"
-        );
-
-        System.out.println(
-                "  Total    : " + mediumTotal
-        );
-
-        System.out.println(
-                "  Solved   : " + mediumSolved
-        );
-
-        System.out.println(
-                "  Unsolved : " +
-                        (mediumTotal - mediumSolved)
-        );
-
-        System.out.printf(
-                "  Progress : %.2f%%\n",
-                mediumPercentage
-        );
-
-
-        System.out.println(
-                "\nHard"
-        );
-
-        System.out.println(
-                "  Total    : " + hardTotal
-        );
-
-        System.out.println(
-                "  Solved   : " + hardSolved
-        );
-
-        System.out.println(
-                "  Unsolved : " +
-                        (hardTotal - hardSolved)
-        );
-
-        System.out.printf(
-                "  Progress : %.2f%%\n",
-                hardPercentage
-        );
-
 
         System.out.println(
                 "\n=============================="
         );
     }
+
+
+    private void printDifficultyProgress(
+            String difficulty,
+            int total,
+            int solved) {
+
+        double percentage = 0;
+
+        if (total > 0) {
+
+            percentage =
+                    ((double) solved / total) * 100;
+        }
+
+        System.out.println(
+                "\n" + difficulty
+        );
+
+        System.out.println(
+                "  Total    : " + total
+        );
+
+        System.out.println(
+                "  Solved   : " + solved
+        );
+
+        System.out.println(
+                "  Unsolved : " + (total - solved)
+        );
+
+        System.out.printf(
+                "  Progress : %.2f%%\n",
+                percentage
+        );
+    }
 }
+

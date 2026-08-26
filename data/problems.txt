@@ -1,2 +1,2 @@
-1|valid parantheses|stack|Easy|true
+1|valid parantheses|stack|Easy|false
 2|Sliding window|deque|Hard|false
