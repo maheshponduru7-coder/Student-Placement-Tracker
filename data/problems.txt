@@ -5,4 +5,4 @@
 5|Remove Duplicate Letters|Stack|Medium|true
 6|Longest Valid Parantheses|Stack|Hard|true
 7|Reverse Words in a string|Stack|Medium|true
-8|Two Sum|Array|Easy|false
+8|Two Sum|Array|Easy|true
