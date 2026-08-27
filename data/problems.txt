@@ -1,2 +1,8 @@
 1|valid parantheses|stack|Easy|false
 2|Sliding window|deque|Hard|false
+3|Sort list|Two pointers|Medium|true
+4|Merge Sorted Array|Two pointers|Easy|true
+5|Remove Duplicate Letters|Stack|Medium|true
+6|Longest Valid Parantheses|Stack|Hard|true
+7|Reverse Words in a string|Stack|Medium|true
+8|Two Sum|Array|Easy|false

@@ -24,20 +24,21 @@ public class Main {
             );
 
             System.out.println("1.  Add Problem");
-            System.out.println("2.  Display All Problems");
-            System.out.println("3.  Mark Problem as Solved");
-            System.out.println("4.  Mark Problem as Unsolved");
-            System.out.println("5.  Search by Category");
-            System.out.println("6.  Search by Name");
-            System.out.println("7.  Update Problem");
-            System.out.println("8.  Delete Problem");
-            System.out.println("9.  Show Progress");
-            System.out.println("10. Filter by Difficulty");
-            System.out.println("11. Filter by Status");
-            System.out.println("12. Sort by ID");
-            System.out.println("13. Sort by Difficulty");
-            System.out.println("14. Category-wise Progress");
-            System.out.println("15. Exit");
+System.out.println("2.  Display All Problems");
+System.out.println("3.  Mark Problem as Solved");
+System.out.println("4.  Mark Problem as Unsolved");
+System.out.println("5.  Search by Category");
+System.out.println("6.  Search by Name");
+System.out.println("7.  Update Problem");
+System.out.println("8.  Delete Problem");
+System.out.println("9.  Show Progress");
+System.out.println("10. Filter by Difficulty");
+System.out.println("11. Filter by Status");
+System.out.println("12. Sort by ID");
+System.out.println("13. Sort by Difficulty");
+System.out.println("14. Category-wise Progress");
+System.out.println("15. Statistics Dashboard");
+System.out.println("16. Exit");
 
             choice =
                     manager.getInteger(
@@ -101,8 +102,10 @@ public class Main {
                 case 14:
                     manager.categoryProgress();
                     break;
-
                 case 15:
+    manager.showDashboard();
+    break;
+                case 16:
 
                     manager.saveProblems();
 
@@ -120,7 +123,7 @@ public class Main {
                     );
             }
 
-        } while (choice != 15);
+        } while (choice != 16);
     }
 }
 

@@ -1013,5 +1013,325 @@ public class ProblemManager {
                 percentage
         );
     }
+    // ==================================================
+// STATISTICS DASHBOARD
+// ==================================================
+
+public void showDashboard() {
+
+    System.out.println(
+            "\n=========================================="
+    );
+
+    System.out.println(
+            "          PLACEMENT DASHBOARD"
+    );
+
+    System.out.println(
+            "=========================================="
+    );
+
+    if (problems.isEmpty()) {
+
+        System.out.println(
+                "No problems available."
+        );
+
+        return;
+    }
+
+    int total = problems.size();
+    int solved = 0;
+
+    for (Problem problem : problems) {
+
+        if (problem.solved) {
+            solved++;
+        }
+    }
+
+    int unsolved = total - solved;
+
+    double percentage =
+            ((double) solved / total) * 100;
+
+    // ==========================================
+    // OVERALL STATISTICS
+    // ==========================================
+
+    System.out.println(
+            "\n----- OVERALL STATISTICS -----"
+    );
+
+    System.out.println(
+            "Total Problems : " + total
+    );
+
+    System.out.println(
+            "Solved         : " + solved
+    );
+
+    System.out.println(
+            "Unsolved       : " + unsolved
+    );
+
+    System.out.printf(
+            "Completion     : %.2f%%\n",
+            percentage
+    );
+
+
+    // ==========================================
+    // PROGRESS BAR
+    // ==========================================
+
+    System.out.print(
+            "Progress       : ["
+    );
+
+    int completedBars =
+            (int) (percentage / 5);
+
+    for (int i = 0; i < 20; i++) {
+
+        if (i < completedBars) {
+            System.out.print("#");
+        } else {
+            System.out.print("-");
+        }
+    }
+
+    System.out.println("]");
+
+
+    // ==========================================
+    // DIFFICULTY STATISTICS
+    // ==========================================
+
+    int easyTotal = 0;
+    int easySolved = 0;
+
+    int mediumTotal = 0;
+    int mediumSolved = 0;
+
+    int hardTotal = 0;
+    int hardSolved = 0;
+
+
+    for (Problem problem : problems) {
+
+        if (problem.difficulty
+                .equalsIgnoreCase("Easy")) {
+
+            easyTotal++;
+
+            if (problem.solved) {
+                easySolved++;
+            }
+        }
+
+        else if (problem.difficulty
+                .equalsIgnoreCase("Medium")) {
+
+            mediumTotal++;
+
+            if (problem.solved) {
+                mediumSolved++;
+            }
+        }
+
+        else if (problem.difficulty
+                .equalsIgnoreCase("Hard")) {
+
+            hardTotal++;
+
+            if (problem.solved) {
+                hardSolved++;
+            }
+        }
+    }
+
+
+    System.out.println(
+            "\n----- DIFFICULTY STATISTICS -----"
+    );
+
+    printDashboardDifficulty(
+            "Easy",
+            easyTotal,
+            easySolved
+    );
+
+    printDashboardDifficulty(
+            "Medium",
+            mediumTotal,
+            mediumSolved
+    );
+
+    printDashboardDifficulty(
+            "Hard",
+            hardTotal,
+            hardSolved
+    );
+
+
+    // ==========================================
+    // CATEGORY STATISTICS
+    // ==========================================
+
+    System.out.println(
+            "\n----- CATEGORY STATISTICS -----"
+    );
+
+    ArrayList<String> categories =
+            new ArrayList<>();
+
+    for (Problem problem : problems) {
+
+        boolean exists = false;
+
+        for (String category : categories) {
+
+            if (category.equalsIgnoreCase(
+                    problem.category)) {
+
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+
+            categories.add(
+                    problem.category
+            );
+        }
+    }
+
+
+    String bestCategory = "";
+    int bestCategorySolved = -1;
+
+
+    for (String category : categories) {
+
+        int categoryTotal = 0;
+        int categorySolved = 0;
+
+        for (Problem problem : problems) {
+
+            if (problem.category
+                    .equalsIgnoreCase(category)) {
+
+                categoryTotal++;
+
+                if (problem.solved) {
+                    categorySolved++;
+                }
+            }
+        }
+
+        double categoryPercentage =
+                ((double) categorySolved /
+                        categoryTotal) * 100;
+
+
+        System.out.println(
+                "\n" + category
+        );
+
+        System.out.println(
+                "  Total    : " + categoryTotal
+        );
+
+        System.out.println(
+                "  Solved   : " + categorySolved
+        );
+
+        System.out.println(
+                "  Unsolved : " +
+                (categoryTotal - categorySolved)
+        );
+
+        System.out.printf(
+                "  Progress : %.2f%%\n",
+                categoryPercentage
+        );
+
+
+        if (categorySolved > bestCategorySolved) {
+
+            bestCategorySolved =
+                    categorySolved;
+
+            bestCategory = category;
+        }
+    }
+
+
+    // ==========================================
+    // BEST CATEGORY
+    // ==========================================
+
+    System.out.println(
+            "\n----- ACHIEVEMENT -----"
+    );
+
+    if (!bestCategory.isEmpty()) {
+
+        System.out.println(
+                "Most Solved Category : " +
+                bestCategory
+        );
+
+        System.out.println(
+                "Problems Solved      : " +
+                bestCategorySolved
+        );
+    }
+
+
+    System.out.println(
+            "\n=========================================="
+    );
+}
+// ==================================================
+// DASHBOARD DIFFICULTY DISPLAY
+// ==================================================
+
+private void printDashboardDifficulty(
+        String difficulty,
+        int total,
+        int solved) {
+
+    double percentage = 0;
+
+    if (total > 0) {
+
+        percentage =
+                ((double) solved / total) * 100;
+    }
+
+    System.out.println(
+            "\n" + difficulty
+    );
+
+    System.out.println(
+            "  Total    : " + total
+    );
+
+    System.out.println(
+            "  Solved   : " + solved
+    );
+
+    System.out.println(
+            "  Unsolved : " + (total - solved)
+    );
+
+    System.out.printf(
+            "  Progress : %.2f%%\n",
+            percentage
+    );
+}
 }
 
