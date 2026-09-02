@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
+import java.util.*;
 
 public class ProblemManager {
 
@@ -104,102 +102,13 @@ public class ProblemManager {
     // FILE HANDLING
     // ==================================================
 
-    public void saveProblems() {
-
-        try {
-
-            File folder = new File("data");
-
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-
-            FileWriter writer =
-                    new FileWriter(FILE_NAME);
-
-            for (Problem problem : problems) {
-
-                writer.write(
-                        problem.toFileFormat() + "\n"
-                );
-            }
-
-            writer.close();
-
-        } catch (IOException e) {
-
-            System.out.println(
-                    "Error saving problems: " +
-                    e.getMessage()
-            );
-        }
-    }
+public void saveProblems() {
+    FileHandler.saveProblems(problems);
+}
 
 
    public void loadProblems() {
-
-    File file = new File(FILE_NAME);
-
-    if (!file.exists()) {
-        return;
-    }
-
-    try {
-
-        BufferedReader reader =
-                new BufferedReader(
-                        new FileReader(FILE_NAME)
-                );
-
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-
-            if (line.trim().isEmpty()) {
-                continue;
-            }
-
-            String[] data =
-                    line.split("\\|");
-
-            if (data.length == 7) {
-
-                int id =
-                        Integer.parseInt(data[0]);
-
-                String name = data[1];
-                String category = data[2];
-                String difficulty = data[3];
-                String company = data[4];
-                String topic = data[5];
-
-                boolean solved =
-                        Boolean.parseBoolean(data[6]);
-
-                problems.add(
-                        new Problem(
-                                id,
-                                name,
-                                category,
-                                difficulty,
-                                company,
-                                topic,
-                                solved
-                        )
-                );
-            }
-        }
-
-        reader.close();
-
-    } catch (IOException |
-             NumberFormatException e) {
-
-        System.out.println(
-                "Error loading problems: " +
-                e.getMessage()
-        );
-    }
+    problems = FileHandler.loadProblems();
 }
 
     // ==================================================
