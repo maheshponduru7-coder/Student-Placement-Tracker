@@ -136,124 +136,138 @@ public class ProblemManager {
     }
 
 
-    public void loadProblems() {
+   public void loadProblems() {
 
-        File file = new File(FILE_NAME);
+    File file = new File(FILE_NAME);
 
-        if (!file.exists()) {
-            return;
-        }
-
-        try {
-
-            BufferedReader reader =
-                    new BufferedReader(
-                            new FileReader(FILE_NAME)
-                    );
-
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] data =
-                        line.split("\\|");
-
-                if (data.length == 5) {
-
-                    int id =
-                            Integer.parseInt(data[0]);
-
-                    String name = data[1];
-                    String category = data[2];
-                    String difficulty = data[3];
-
-                    boolean solved =
-                            Boolean.parseBoolean(data[4]);
-
-                    problems.add(
-                            new Problem(
-                                    id,
-                                    name,
-                                    category,
-                                    difficulty,
-                                    solved
-                            )
-                    );
-                }
-            }
-
-            reader.close();
-
-        } catch (IOException |
-                 NumberFormatException e) {
-
-            System.out.println(
-                    "Error loading problems: " +
-                    e.getMessage()
-            );
-        }
+    if (!file.exists()) {
+        return;
     }
 
+    try {
+
+        BufferedReader reader =
+                new BufferedReader(
+                        new FileReader(FILE_NAME)
+                );
+
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] data =
+                    line.split("\\|");
+
+            if (data.length == 7) {
+
+                int id =
+                        Integer.parseInt(data[0]);
+
+                String name = data[1];
+                String category = data[2];
+                String difficulty = data[3];
+                String company = data[4];
+                String topic = data[5];
+
+                boolean solved =
+                        Boolean.parseBoolean(data[6]);
+
+                problems.add(
+                        new Problem(
+                                id,
+                                name,
+                                category,
+                                difficulty,
+                                company,
+                                topic,
+                                solved
+                        )
+                );
+            }
+        }
+
+        reader.close();
+
+    } catch (IOException |
+             NumberFormatException e) {
+
+        System.out.println(
+                "Error loading problems: " +
+                e.getMessage()
+        );
+    }
+}
 
     // ==================================================
     // ADD PROBLEM
     // ==================================================
 
-    public void addProblem() {
+   public void addProblem() {
 
-        System.out.println(
-                "\n===== ADD PROBLEM ====="
-        );
+    System.out.println(
+            "\n===== ADD PROBLEM ====="
+    );
 
-        int id =
-                getInteger("Enter Problem ID: ");
+    int id =
+            getInteger("Enter Problem ID: ");
 
-        for (Problem problem : problems) {
+    // Check duplicate ID
+    for (Problem problem : problems) {
 
-            if (problem.id == id) {
+        if (problem.id == id) {
 
-                System.out.println(
-                        "Problem ID already exists!"
-                );
+            System.out.println(
+                    "Problem ID already exists!"
+            );
 
-                return;
-            }
+            return;
         }
-
-        String name =
-                getNonEmptyInput(
-                        "Enter Problem Name: "
-                );
-
-        String category =
-                getNonEmptyInput(
-                        "Enter Category: "
-                );
-
-        String difficulty =
-                getDifficulty();
-
-        problems.add(
-                new Problem(
-                        id,
-                        name,
-                        category,
-                        difficulty
-                )
-        );
-
-        saveProblems();
-
-        System.out.println(
-                "Problem added successfully!"
-        );
     }
 
+    String name =
+            getNonEmptyInput(
+                    "Enter Problem Name: "
+            );
 
+    String category =
+            getNonEmptyInput(
+                    "Enter Category: "
+            );
+
+    String difficulty =
+            getDifficulty();
+
+    String company =
+            getNonEmptyInput(
+                    "Enter Company: "
+            );
+
+    String topic =
+            getNonEmptyInput(
+                    "Enter Topic: "
+            );
+
+    problems.add(
+            new Problem(
+                    id,
+                    name,
+                    category,
+                    difficulty,
+                    company,
+                    topic
+            )
+    );
+
+    saveProblems();
+
+    System.out.println(
+            "Problem added successfully!"
+    );
+}
     // ==================================================
     // DISPLAY ALL PROBLEMS
     // ==================================================
@@ -281,22 +295,22 @@ public class ProblemManager {
     // DISPLAY LIST
     // ==================================================
 
-    private void displayList(
-            ArrayList<Problem> list) {
+   private void displayList(
+        ArrayList<Problem> list) {
 
-        System.out.println(
-                "ID | Name | Category | Difficulty | Status"
-        );
+    System.out.println(
+            "ID | Name | Category | Difficulty | Company | Topic | Status"
+    );
 
-        System.out.println(
-                "-------------------------------------------------------"
-        );
+    System.out.println(
+            "--------------------------------------------------------------------------"
+    );
 
-        for (Problem problem : list) {
-            problem.display();
-        }
+    for (Problem problem : list) {
+
+        problem.display();
     }
-
+}
 
     // ==================================================
     // MARK SOLVED
@@ -465,53 +479,62 @@ public class ProblemManager {
     // UPDATE PROBLEM
     // ==================================================
 
-    public void updateProblem() {
+   public void updateProblem() {
 
-        System.out.println(
-                "\n===== UPDATE PROBLEM ====="
-        );
+    System.out.println(
+            "\n===== UPDATE PROBLEM ====="
+    );
 
-        int id =
-                getInteger("Enter Problem ID: ");
+    int id =
+            getInteger("Enter Problem ID: ");
 
-        for (Problem problem : problems) {
+    for (Problem problem : problems) {
 
-            if (problem.id == id) {
+        if (problem.id == id) {
 
-                System.out.println(
-                        "\nCurrent Problem:"
-                );
+            System.out.println(
+                    "\nCurrent Problem:"
+            );
 
-                problem.display();
+            problem.display();
 
-                problem.name =
-                        getNonEmptyInput(
-                                "Enter New Problem Name: "
-                        );
+            problem.name =
+                    getNonEmptyInput(
+                            "Enter New Problem Name: "
+                    );
 
-                problem.category =
-                        getNonEmptyInput(
-                                "Enter New Category: "
-                        );
+            problem.category =
+                    getNonEmptyInput(
+                            "Enter New Category: "
+                    );
 
-                problem.difficulty =
-                        getDifficulty();
+            problem.difficulty =
+                    getDifficulty();
 
-                saveProblems();
+            problem.company =
+                    getNonEmptyInput(
+                            "Enter New Company: "
+                    );
 
-                System.out.println(
-                        "Problem updated successfully!"
-                );
+            problem.topic =
+                    getNonEmptyInput(
+                            "Enter New Topic: "
+                    );
 
-                return;
-            }
+            saveProblems();
+
+            System.out.println(
+                    "Problem updated successfully!"
+            );
+
+            return;
         }
-
-        System.out.println(
-                "Problem not found."
-        );
     }
 
+    System.out.println(
+            "Problem not found."
+    );
+}
 
     // ==================================================
     // DELETE PROBLEM
@@ -1332,6 +1355,133 @@ private void printDashboardDifficulty(
             "  Progress : %.2f%%\n",
             percentage
     );
+}
+public void searchByCompany() {
+
+    System.out.println(
+            "\n===== SEARCH BY COMPANY ====="
+    );
+
+    String company =
+            getNonEmptyInput(
+                    "Enter Company: "
+            );
+
+    boolean found = false;
+
+    for (Problem problem : problems) {
+
+        if (problem.company
+                .equalsIgnoreCase(company)) {
+
+            problem.display();
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+
+        System.out.println(
+                "No problems found for this company."
+        );
+    }
+}
+
+public void searchByTopic() {
+
+    System.out.println(
+            "\n===== SEARCH BY TOPIC ====="
+    );
+
+    String topic =
+            getNonEmptyInput(
+                    "Enter Topic: "
+            );
+
+    boolean found = false;
+
+    for (Problem problem : problems) {
+
+        if (problem.topic
+                .equalsIgnoreCase(topic)) {
+
+            problem.display();
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+
+        System.out.println(
+                "No problems found for this topic."
+        );
+    }
+}
+public void advancedSearch() {
+
+    System.out.println("\n===== ADVANCED SEARCH =====");
+
+    System.out.print("Enter Company (or press Enter to skip): ");
+    String company = scanner.nextLine().trim();
+
+    System.out.print("Enter Topic (or press Enter to skip): ");
+    String topic = scanner.nextLine().trim();
+
+    System.out.print("Enter Difficulty (Easy/Medium/Hard or press Enter to skip): ");
+    String difficulty = scanner.nextLine().trim();
+
+    System.out.print("Enter Status (Solved/Unsolved or press Enter to skip): ");
+    String status = scanner.nextLine().trim();
+
+    boolean found = false;
+
+    System.out.println("\n===== SEARCH RESULTS =====");
+
+    for (Problem problem : problems) {
+
+        boolean matches = true;
+
+        // Company filter
+        if (!company.isEmpty() &&
+            !problem.company.equalsIgnoreCase(company)) {
+            matches = false;
+        }
+
+        // Topic filter
+        if (!topic.isEmpty() &&
+            !problem.topic.equalsIgnoreCase(topic)) {
+            matches = false;
+        }
+
+        // Difficulty filter
+        if (!difficulty.isEmpty() &&
+            !problem.difficulty.equalsIgnoreCase(difficulty)) {
+            matches = false;
+        }
+
+        // Status filter
+        if (!status.isEmpty()) {
+
+            if (status.equalsIgnoreCase("Solved") && !problem.solved) {
+                matches = false;
+            }
+
+            if (status.equalsIgnoreCase("Unsolved") && problem.solved) {
+                matches = false;
+            }
+        }
+
+        if (matches) {
+            problem.display();
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("No problems match the given filters.");
+    }
 }
 }
 

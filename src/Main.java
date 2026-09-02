@@ -38,7 +38,10 @@ System.out.println("12. Sort by ID");
 System.out.println("13. Sort by Difficulty");
 System.out.println("14. Category-wise Progress");
 System.out.println("15. Statistics Dashboard");
-System.out.println("16. Exit");
+System.out.println("16. Search by company");
+System.out.println("17. Search by Topic");
+System.out.println("18. Advanced Search");
+System.out.println("19. Exit");
 
             choice =
                     manager.getInteger(
@@ -106,15 +109,24 @@ System.out.println("16. Exit");
     manager.showDashboard();
     break;
                 case 16:
+    manager.searchByCompany();
+    break;
 
-                    manager.saveProblems();
+case 17:
+    manager.searchByTopic();
+    break;
+case 18:
+    manager.advancedSearch();
+    break;
+case 19:
+    manager.saveProblems();
 
-                    System.out.println(
-                            "\nThank you for using " +
-                            "Student Placement Tracker!"
-                    );
+    System.out.println(
+            "\nThank you for using " +
+            "Student Placement Tracker!"
+    );
 
-                    break;
+    break;
 
                 default:
 
@@ -123,7 +135,7 @@ System.out.println("16. Exit");
                     );
             }
 
-        } while (choice != 16);
+        } while (choice != 19);
     }
 }
 
