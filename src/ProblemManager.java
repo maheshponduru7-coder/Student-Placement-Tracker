@@ -1392,5 +1392,144 @@ public void advancedSearch() {
         System.out.println("No problems match the given filters.");
     }
 }
+public void searchByIdUsingHashMap() {
+
+    System.out.println("\n===== SEARCH BY ID =====");
+
+    int id = getInteger("Enter Problem ID: ");
+
+    HashMap<Integer, Problem> problemMap = new HashMap<>();
+
+    // Store problems in HashMap
+    for (Problem problem : problems) {
+        problemMap.put(problem.id, problem);
+    }
+
+    // Fast lookup using ID
+    Problem problem = problemMap.get(id);
+
+    if (problem != null) {
+        System.out.println("\nProblem Found:");
+        problem.display();
+    } else {
+        System.out.println("No problem found with ID " + id);
+    }
+}
+public void showUniqueCompaniesAndTopics() {
+
+    System.out.println("\n===== UNIQUE COMPANIES & TOPICS =====");
+
+    HashSet<String> companies = new HashSet<>();
+    HashSet<String> topics = new HashSet<>();
+
+    for (Problem problem : problems) {
+        companies.add(problem.company);
+        topics.add(problem.topic);
+    }
+
+    System.out.println("\nCompanies:");
+
+    for (String company : companies) {
+        System.out.println("- " + company);
+    }
+
+    System.out.println("\nTopics:");
+
+    for (String topic : topics) {
+        System.out.println("- " + topic);
+    }
+}
+public void advancedStatistics() {
+
+    System.out.println("\n===== ADVANCED STATISTICS =====");
+
+    HashMap<String, Integer> difficultyCount = new HashMap<>();
+    HashMap<String, Integer> companyCount = new HashMap<>();
+    HashMap<String, Integer> topicCount = new HashMap<>();
+
+    HashMap<String, Integer> solvedCompanyCount = new HashMap<>();
+    HashMap<String, Integer> solvedTopicCount = new HashMap<>();
+
+    for (Problem problem : problems) {
+
+        // Difficulty count
+        difficultyCount.put(
+                problem.difficulty,
+                difficultyCount.getOrDefault(problem.difficulty, 0) + 1
+        );
+
+        // Company count
+        companyCount.put(
+                problem.company,
+                companyCount.getOrDefault(problem.company, 0) + 1
+        );
+
+        // Topic count
+        topicCount.put(
+                problem.topic,
+                topicCount.getOrDefault(problem.topic, 0) + 1
+        );
+
+        // Solved company count
+        if (problem.solved) {
+            solvedCompanyCount.put(
+                    problem.company,
+                    solvedCompanyCount.getOrDefault(problem.company, 0) + 1
+            );
+
+            // Solved topic count
+            solvedTopicCount.put(
+                    problem.topic,
+                    solvedTopicCount.getOrDefault(problem.topic, 0) + 1
+            );
+        }
+    }
+
+    System.out.println("\n--- Problems by Difficulty ---");
+    displayStatistics(difficultyCount);
+
+    System.out.println("\n--- Problems by Company ---");
+    displayStatistics(companyCount);
+
+    System.out.println("\n--- Problems by Topic ---");
+    displayStatistics(topicCount);
+
+    System.out.println("\n--- Solved Problems by Company ---");
+    displayStatistics(solvedCompanyCount);
+
+    System.out.println("\n--- Solved Problems by Topic ---");
+    displayStatistics(solvedTopicCount);
+
+    System.out.println("\n--- Most Common Company ---");
+    System.out.println(findMaximum(companyCount));
+
+    System.out.println("\n--- Most Common Topic ---");
+    System.out.println(findMaximum(topicCount));
+}
+private void displayStatistics(HashMap<String, Integer> map) {
+
+    for (String key : map.keySet()) {
+        System.out.println(key + " : " + map.get(key));
+    }
+}
+private String findMaximum(HashMap<String, Integer> map) {
+
+    if (map.isEmpty()) {
+        return "No data available";
+    }
+
+    String maximumKey = "";
+    int maximumValue = 0;
+
+    for (String key : map.keySet()) {
+
+        if (map.get(key) > maximumValue) {
+            maximumValue = map.get(key);
+            maximumKey = key;
+        }
+    }
+
+    return maximumKey + " : " + maximumValue + " problems";
+}
 }
 

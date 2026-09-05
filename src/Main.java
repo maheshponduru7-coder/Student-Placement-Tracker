@@ -41,7 +41,10 @@ System.out.println("15. Statistics Dashboard");
 System.out.println("16. Search by company");
 System.out.println("17. Search by Topic");
 System.out.println("18. Advanced Search");
-System.out.println("19. Exit");
+System.out.println("19. Search by ID");
+System.out.println("20. Search unique companies and topics");
+System.out.println("21.Advanced Statistics");
+System.out.println("22.Exit");
 
             choice =
                     manager.getInteger(
@@ -119,15 +122,19 @@ case 18:
     manager.advancedSearch();
     break;
 case 19:
-    manager.saveProblems();
-
-    System.out.println(
-            "\nThank you for using " +
-            "Student Placement Tracker!"
-    );
-
+    manager.searchByIdUsingHashMap();
     break;
 
+case 20:
+    manager.showUniqueCompaniesAndTopics();
+    break;
+case 21:
+    manager.advancedStatistics();
+    break;
+case 22:
+    manager.saveProblems();
+    System.out.println("\nThank you for using Student Placement Tracker!");
+    break;
                 default:
 
                     System.out.println(
@@ -135,7 +142,7 @@ case 19:
                     );
             }
 
-        } while (choice != 19);
+        } while (choice != 22);
     }
 }
 

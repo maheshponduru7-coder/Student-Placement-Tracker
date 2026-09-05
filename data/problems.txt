@@ -5,3 +5,4 @@
 5|Valid Parentheses|Stack|Easy|Google|Stack|true
 6|Sliding window Maximum|Queue|Medium|Amazon|Queue|false
 7|Histograph|Stack|Hard|Google|Stack|false
+8|PreOrder|BST|Easy|Google|Trees|false
