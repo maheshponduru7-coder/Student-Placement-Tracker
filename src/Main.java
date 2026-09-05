@@ -46,10 +46,7 @@ System.out.println("20. Search unique companies and topics");
 System.out.println("21.Advanced Statistics");
 System.out.println("22.Exit");
 
-            choice =
-                    manager.getInteger(
-                            "\nEnter your choice: "
-                    );
+             choice = manager.getMenuChoice();
 
             switch (choice) {
 

@@ -12,25 +12,19 @@ public class ProblemManager {
     // INPUT VALIDATION
     // ==================================================
 
-    public int getInteger(String message) {
+    private int getInteger(String message) {
 
-        while (true) {
+    while (true) {
 
+        try {
             System.out.print(message);
+            return Integer.parseInt(scanner.nextLine().trim());
 
-            String input = scanner.nextLine();
-
-            try {
-                return Integer.parseInt(input);
-
-            } catch (NumberFormatException e) {
-
-                System.out.println(
-                        "Invalid input! Please enter a number."
-                );
-            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a number.");
         }
     }
+}
 
 
     public String getNonEmptyInput(String message) {
@@ -50,52 +44,42 @@ public class ProblemManager {
             );
         }
     }
+    
 
+    private String getDifficulty() {
 
-    public String getDifficulty() {
+    while (true) {
 
-        while (true) {
+        System.out.print("Enter Difficulty (Easy/Medium/Hard): ");
 
-            String difficulty =
-                    getNonEmptyInput(
-                            "Enter Difficulty (Easy/Medium/Hard): "
-                    );
+        String difficulty = scanner.nextLine().trim();
 
-            if (difficulty.equalsIgnoreCase("Easy")) {
-                return "Easy";
-            }
+        if (difficulty.equalsIgnoreCase("Easy") ||
+            difficulty.equalsIgnoreCase("Medium") ||
+            difficulty.equalsIgnoreCase("Hard")) {
 
-            if (difficulty.equalsIgnoreCase("Medium")) {
-                return "Medium";
-            }
-
-            if (difficulty.equalsIgnoreCase("Hard")) {
-                return "Hard";
-            }
-
-            System.out.println(
-                    "Invalid difficulty! Please enter Easy, Medium or Hard."
-            );
+            return difficulty;
         }
-    }
 
+        System.out.println(
+            "Invalid difficulty! Choose Easy, Medium, or Hard."
+        );
+    }
+}
 
     public int getMenuChoice() {
 
-        while (true) {
+    while (true) {
 
-            int choice =
-                    getInteger("\nEnter your choice: ");
+        try {
+            System.out.print("Enter your choice: ");
+            return Integer.parseInt(scanner.nextLine().trim());
 
-            if (choice >= 1 && choice <= 15) {
-                return choice;
-            }
-
-            System.out.println(
-                    "Invalid choice! Please select 1-15."
-            );
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid choice! Please enter a number.");
         }
     }
+}
 
 
     // ==================================================
