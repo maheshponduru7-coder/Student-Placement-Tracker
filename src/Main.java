@@ -7,6 +7,8 @@ public class Main {
 
         manager.loadProblems();
 
+         DatabaseManager database = new DatabaseManager();
+
         int choice;
 
         do {
@@ -44,7 +46,17 @@ System.out.println("18. Advanced Search");
 System.out.println("19. Search by ID");
 System.out.println("20. Search unique companies and topics");
 System.out.println("21.Advanced Statistics");
-System.out.println("22.Exit");
+System.out.println("22.Display problems from SQL");
+System.out.println("23.Add problem to mySQL");
+System.out.println("24.Update problem in MySQL");
+System.out.println("25.Delete problem from MySQL");
+System.out.println("26.Mark Problem solved in MySQL");
+System.out.println("27.Mark problem unsolved in MySQL");
+System.out.println("28.Search MySQL by Company");
+System.out.println("29.Search MySQL by Topic");
+System.out.println("30.Search MySQL by Difficulty");
+System.out.println("31.Search MySQL by Status");
+System.out.println("32.Exit");
 
              choice = manager.getMenuChoice();
 
@@ -129,9 +141,123 @@ case 21:
     manager.advancedStatistics();
     break;
 case 22:
-    manager.saveProblems();
-    System.out.println("\nThank you for using Student Placement Tracker!");
+    database.displayAllProblems();
     break;
+case 23:
+    System.out.println("\n===== ADD PROBLEM TO MYSQL =====");
+
+    int id = manager.getInteger("Enter Problem ID: ");
+
+   
+    String name = manager.getNonEmptyInput("Enter Problem Name: ");
+
+   
+    
+    String category = manager.getNonEmptyInput("Enter Category: ");
+
+    String difficulty = manager.getDifficulty();
+
+   
+    String company = manager.getNonEmptyInput("Enter Company: ");
+
+   
+    String topic = manager.getNonEmptyInput("Enter Topic: ");
+
+    Problem problem = new Problem(
+            id, name, category, difficulty, company, topic
+    );
+
+    database.addProblem(problem);
+    break;
+case 24:
+    System.out.println("\n===== UPDATE PROBLEM IN MYSQL =====");
+
+    int updateId = manager.getInteger("Enter Problem ID: ");
+
+    
+    String updateName = manager.getNonEmptyInput("Enter Problem Name: ");
+
+   
+    String updateCategory = manager.getNonEmptyInput("Enter Category: ");
+
+    String updateDifficulty = manager.getDifficulty();
+
+    
+    String updateCompany = manager.getNonEmptyInput("Enter Company: ");
+
+  
+    String updateTopic = manager.getNonEmptyInput("Enter Topic: ");
+
+    Problem updatedProblem = new Problem(
+            updateId,
+            updateName,
+            updateCategory,
+            updateDifficulty,
+            updateCompany,
+            updateTopic
+    );
+
+    System.out.print("Is the problem solved? (true/false): ");
+    updatedProblem.solved = Boolean.parseBoolean(
+            manager.getNonEmptyInput("Enter true or false: ")
+    );
+
+    database.updateProblem(updatedProblem);
+    break;
+
+case 25:
+    System.out.println("\n===== DELETE PROBLEM FROM MYSQL =====");
+
+    int deleteId = manager.getInteger("Enter Problem ID to delete: ");
+
+    database.deleteProblem(deleteId);
+    break;
+
+case 26:
+    int solvedId = manager.getInteger("Enter Problem ID: ");
+    database.markSolved(solvedId);
+    break;
+
+case 27:
+    int unsolvedId = manager.getInteger("Enter Problem ID: ");
+    database.markUnsolved(unsolvedId);
+    break;
+
+case 28:
+    String searchCompany = manager.getNonEmptyInput("Enter Company: ");
+    database.searchByCompany(searchCompany);
+    break;
+
+case 29:
+    String searchTopic = manager.getNonEmptyInput("Enter Topic: ");
+    database.searchByTopic(searchTopic);
+    break;
+
+case 30:
+    String searchDifficulty = manager.getDifficulty();
+    database.searchByDifficulty(searchDifficulty);
+    break;
+
+case 31:
+    String status = manager.getNonEmptyInput(
+            "Enter Status (Solved/Unsolved): "
+    );
+
+    if (status.equalsIgnoreCase("Solved")) {
+        database.searchByStatus(true);
+    } else if (status.equalsIgnoreCase("Unsolved")) {
+        database.searchByStatus(false);
+    } else {
+        System.out.println("Invalid status!");
+    }
+    break;
+
+case 32:
+    System.out.println(
+            "Thank you for using Student Placement Tracker!"
+    );
+    break;
+
                 default:
 
                     System.out.println(
@@ -139,7 +265,7 @@ case 22:
                     );
             }
 
-        } while (choice != 22);
+        } while (choice != 32);
     }
 }
 

@@ -12,7 +12,7 @@ public class ProblemManager {
     // INPUT VALIDATION
     // ==================================================
 
-    private int getInteger(String message) {
+    public int getInteger(String message) {
 
     while (true) {
 
@@ -46,7 +46,7 @@ public class ProblemManager {
     }
     
 
-    private String getDifficulty() {
+    public String getDifficulty() {
 
     while (true) {
 

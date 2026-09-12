@@ -119,4 +119,190 @@ public void deleteProblem(int id) {
         System.out.println("Error deleting problem: " + e.getMessage());
     }
 }
+public void markSolved(int id) {
+
+    String sql = "UPDATE problems SET solved = TRUE WHERE id = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setInt(1, id);
+
+        int rows = statement.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Problem marked as solved in MySQL!");
+        } else {
+            System.out.println("Problem not found.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error updating problem: " + e.getMessage());
+    }
+}
+
+public void markUnsolved(int id) {
+
+    String sql = "UPDATE problems SET solved = FALSE WHERE id = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setInt(1, id);
+
+        int rows = statement.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Problem marked as unsolved in MySQL!");
+        } else {
+            System.out.println("Problem not found.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error updating problem: " + e.getMessage());
+    }
+}
+public void searchByCompany(String company) {
+
+    String sql = "SELECT * FROM problems WHERE company = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setString(1, company);
+
+        var resultSet = statement.executeQuery();
+
+        boolean found = false;
+
+        while (resultSet.next()) {
+            found = true;
+
+            System.out.println(
+                    resultSet.getInt("id") + " | " +
+                    resultSet.getString("name") + " | " +
+                    resultSet.getString("category") + " | " +
+                    resultSet.getString("difficulty") + " | " +
+                    resultSet.getString("company") + " | " +
+                    resultSet.getString("topic") + " | " +
+                    (resultSet.getBoolean("solved") ? "Solved" : "Not Solved")
+            );
+        }
+
+        if (!found) {
+            System.out.println("No problems found for this company.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error searching by company: " + e.getMessage());
+    }
+}
+
+public void searchByTopic(String topic) {
+
+    String sql = "SELECT * FROM problems WHERE topic = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setString(1, topic);
+
+        var resultSet = statement.executeQuery();
+
+        boolean found = false;
+
+        while (resultSet.next()) {
+            found = true;
+
+            System.out.println(
+                    resultSet.getInt("id") + " | " +
+                    resultSet.getString("name") + " | " +
+                    resultSet.getString("category") + " | " +
+                    resultSet.getString("difficulty") + " | " +
+                    resultSet.getString("company") + " | " +
+                    resultSet.getString("topic") + " | " +
+                    (resultSet.getBoolean("solved") ? "Solved" : "Not Solved")
+            );
+        }
+
+        if (!found) {
+            System.out.println("No problems found for this topic.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error searching by topic: " + e.getMessage());
+    }
+}
+
+public void searchByDifficulty(String difficulty) {
+
+    String sql = "SELECT * FROM problems WHERE difficulty = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setString(1, difficulty);
+
+        var resultSet = statement.executeQuery();
+
+        boolean found = false;
+
+        while (resultSet.next()) {
+            found = true;
+
+            System.out.println(
+                    resultSet.getInt("id") + " | " +
+                    resultSet.getString("name") + " | " +
+                    resultSet.getString("category") + " | " +
+                    resultSet.getString("difficulty") + " | " +
+                    resultSet.getString("company") + " | " +
+                    resultSet.getString("topic") + " | " +
+                    (resultSet.getBoolean("solved") ? "Solved" : "Not Solved")
+            );
+        }
+
+        if (!found) {
+            System.out.println("No problems found for this difficulty.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error searching by difficulty: " + e.getMessage());
+    }
+}
+
+public void searchByStatus(boolean solved) {
+
+    String sql = "SELECT * FROM problems WHERE solved = ?";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+        statement.setBoolean(1, solved);
+
+        var resultSet = statement.executeQuery();
+
+        boolean found = false;
+
+        while (resultSet.next()) {
+            found = true;
+
+            System.out.println(
+                    resultSet.getInt("id") + " | " +
+                    resultSet.getString("name") + " | " +
+                    resultSet.getString("category") + " | " +
+                    resultSet.getString("difficulty") + " | " +
+                    resultSet.getString("company") + " | " +
+                    resultSet.getString("topic") + " | " +
+                    (resultSet.getBoolean("solved") ? "Solved" : "Not Solved")
+            );
+        }
+
+        if (!found) {
+            System.out.println("No problems found for this status.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error searching by status: " + e.getMessage());
+    }
+}
 }
